@@ -11,12 +11,26 @@ var musik = document.getElementById("bg-music");
 var btnAudio = document.getElementById("audio-control");
 
 function bukaUndangan() {
-    document.getElementById('cover').style.opacity = '0';
+    const cover = document.getElementById('cover');
+    const mainContent = document.getElementById('main-content');
+    const btnAudio = document.getElementById("audio-control");
+
+    // Efek transisi halus
+    cover.style.opacity = '0';
+    cover.style.pointerEvents = 'none'; // Biar klik nembus ke bawah
+
     setTimeout(() => {
-        document.getElementById('cover').style.display = 'none';
-        document.getElementById('main-content').style.display = 'block';
+        cover.style.display = 'none';
+        mainContent.style.display = 'block';
+        
+        // Paksa scroll ke paling atas pas kebuka
+        window.scrollTo(0, 0);
+        
+        // Re-enable scrolling
         document.body.style.overflowY = 'auto';
-        musik.play();
+        document.documentElement.style.overflowY = 'auto'; 
+        
+        musik.play().catch(e => console.log("Autoplay dicegah browser"));
         btnAudio.style.display = 'block';
     }, 1000);
 }
@@ -78,4 +92,5 @@ function shareWA() {
     var linkUndangan = window.location.href.split('?')[0];
     var pesan = `Bismillahirrahmanirrahim.%0ATanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i untuk hadir di acara pernikahan kami.%0A%0ABuka tautan berikut untuk info detail:%0A${linkUndangan}%0A%0ATerima kasih.`;
     window.open(`https://wa.me/?text=${pesan}`, '_blank');
+
 }
