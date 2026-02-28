@@ -7,13 +7,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="locked">
 
     <audio id="nasheed" loop>
         <source src="In A Rush - backstreet boys.mp3" type="audio/mpeg">
     </audio>
 
-    <div id="music-btn" onclick="toggleMusic()">🎵</div>
+    <div id="music-btn" onclick="toggleMusic()" style="display: none;">🎵</div>
 
     <section class="hero">
         <p class="fade-in">THE WEDDING OF</p>
@@ -25,98 +25,148 @@
         <button class="btn-gold" onclick="openInvitation()">Open Invitation</button>
     </section>
 
-    <section id="main-content">
-        <div class="quote glass-card">
-            "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan pasangan-pasangan dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya..." (Ar-Rum: 21)
-        </div>
-        
-        <div class="mempelai-box">
-            <div class="arch-frame">
-                <img src="prewed16.jpg" alt="Wyvanny Della">
+    <main id="main-invitation" style="display: none;">
+        <section id="main-content">
+            <div class="quote glass-card">
+                "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan pasangan-pasangan dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya..." (Ar-Rum: 21)
             </div>
-            <h2 class="script-name">Wyvanny Della, S.H</h2>
-            <p>Putri ke-4 dari Bapak H. Daswir St. Rajo Mudo (Alm) & Ibu Hj. Zurnila</p>
-        </div>
-
-        <div class="divider-ampersand">&</div>
-
-        <div class="mempelai-box">
-            <div class="arch-frame">
-                <img src="prewed17.jpg" alt="Destra Panca">
-            </div>
-            <h2 class="script-name">Destra Panca Syahputra, S.H</h2>
-            <p>Putra ke-5 dari Bapak Firmansyah (Alm) & Ibu Larasati</p>
-        </div>
-    </section>
-
-    <section class="events">
-        <h2 class="section-title">Save The Date</h2>
-        
-        <div class="countdown-container">
-            <div class="countdown-row">
-                <div class="count-box large"><span id="days">00</span><p>Hari</p></div>
-            </div>
-            <div class="countdown-row">
-                <div class="count-box"><span id="hours">00</span><p>Jam</p></div>
-                <div class="count-box"><span id="mins">00</span><p>Menit</p></div>
-                <div class="count-box"><span id="secs">00</span><p>Detik</p></div>
-            </div>
-        </div>
-
-        <div class="glass-card">
-            <h3>Akad Nikah</h3>
-            <p>Sabtu, 28 Maret 2026<br>09.00 WIB</p>
-            <hr class="gold-line">
-            <h3>Resepsi Pernikahan</h3>
-            <p>Sabtu, 28 Maret 2026<br>11.00 - 16.00 WIB</p>
-        </div>
-
-        <div class="location-box glass-card">
-            <h3>Lokasi Acara</h3>
-            <p>Hotel Dymens Bukittinggi</p>
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.3102371234!2d100.37!3d-0.30!" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-            <br><br>
-            <a href="https://maps.google.com" target="_blank" class="btn-gold">Buka Google Maps</a>
-        </div>
-    </section>
-
-    <section class="gallery">
-        <h2 class="section-title">Portraits of Us</h2>
-        <div class="gallery-wrapper">
-            <div class="gallery-container">
-                <div class="gallery-item"><img src="prewed2.jpg"></div>
-                <div class="gallery-item"><img src="prewed11.jpg"></div>
-                <div class="gallery-item"><img src="prewed3.jpg"></div>
-                <div class="gallery-item"><img src="prewed12.jpg"></div>
-                <div class="gallery-item"><img src="prewed5.jpg"></div>
-                <div class="gallery-item"><img src="prewed14.jpg"></div>
-            </div>
-        </div>
-    </section>
-
-    <section class="extra">
-        <h2 class="section-title">Wedding Gift</h2>
-        <div class="glass-card">
-            <p><strong>BANK BCA</strong><br>4760781989<br>Wyvanny Della</p>
-        </div>
-        <div class="glass-card">
-            <p><strong>BANK BRI</strong><br>093901021232536<br>Destra Panca Syahputra</p>
-        </div>
-    </section>
-
-    <section class="wish-section">
-        <h2 class="section-title">Ucapan & Doa</h2>
-        <div class="glass-card">
-            <form id="wish-form">
-                <input type="text" id="nama" placeholder="Nama Anda" required>
-                <textarea id="ucapan" rows="4" placeholder="Tulis doa restu..." required></textarea>
-                <div class="wa-button-group">
-                    <button type="button" onclick="sendToWA('wanita')" class="btn-wa">Kirim ke Wyvanny</button>
-                    <button type="button" onclick="sendToWA('pria')" class="btn-wa">Kirim ke Destra</button>
+            
+            <div class="mempelai-box">
+                <div class="arch-frame">
+                    <img src="prewed16.jpg" alt="Wyvanny Della">
                 </div>
-            </form>
+                <h2 class="script-name">Wyvanny Della, S.H</h2>
+                <p>Putri ke-4 dari Bapak H. Daswir St. Rajo Mudo (Alm) & Ibu Hj. Zurnila</p>
+            </div>
+
+            <div class="divider-ampersand">&</div>
+
+            <div class="mempelai-box">
+                <div class="arch-frame">
+                    <img src="prewed17.jpg" alt="Destra Panca">
+                </div>
+                <h2 class="script-name">Destra Panca Syahputra, S.H</h2>
+                <p>Putra ke-5 dari Bapak Firmansyah (Alm) & Ibu Larasati</p>
+            </div>
+        </section>
+
+        <section class="events">
+            <h2 class="section-title">Save The Date</h2>
+            <div class="countdown-container">
+                <div class="countdown-row">
+                    <div class="count-box large"><span id="days">00</span><p>Hari</p></div>
+                </div>
+                <div class="countdown-row">
+                    <div class="count-box"><span id="hours">00</span><p>Jam</p></div>
+                    <div class="count-box"><span id="mins">00</span><p>Menit</p></div>
+                    <div class="count-box"><span id="secs">00</span><p>Detik</p></div>
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <h3>Akad Nikah</h3>
+                <p>Sabtu, 28 Maret 2026<br>09.00 WIB</p>
+            </div>
+            <div class="glass-card">    
+                <hr class="gold-line">
+                <h3>Resepsi Pernikahan</h3>
+                <p>Sabtu, 28 Maret 2026<br>11.00 - 16.00 WIB</p>
+            </div>
+
+            <div class="location-box glass-card">
+                <h3>Lokasi Acara</h3>
+                <p>Hotel Dymens Bukittinggi</p>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.756284242691!2d100.370535!3d-0.306161!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2fd538bb8b8686d1%3A0x608e925b42603884!2sHotel%20Dymens!5e0!3m2!1sid!2sid!4v1710000000000!5m2!1sid!2sid" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                <br><br>
+                <a href="https://maps.app.goo.gl/NbsLVP3kLznNiivw9" target="_blank" class="btn-gold">Buka Google Maps</a>
+            </div>
+        </section>
+
+<section class="story-section">
+    <h2 class="section-title">Our Story</h2>
+    
+    <div class="story-container">
+        
+        <div class="story-row left">
+            <div class="story-bubble" onclick="openStory('cerita1')">Cerita berawal dari...</div>
         </div>
-    </section>
+
+        <div class="story-row right">
+            <div class="story-bubble" onclick="openStory('cerita2')">Keinginan untuk mengenal</div>
+        </div>
+
+        <div class="story-row left">
+            <div class="story-bubble" onclick="openStory('cerita3')">Keadaan memperkuat keyakinan</div>
+        </div>
+
+        <div class="story-row right">
+            <div class="story-bubble" onclick="openStory('cerita4')">Berjuang</div>
+        </div>
+
+        <div class="story-row left">
+            <div class="story-bubble" onclick="openStory('cerita5')">Kebahagiaan atas penerimaan</div>
+        </div>
+    </div>
+
+    <div class="story-footer-text">
+        <p>Perjalanan ini tak akan pernah kami lupakan. Banyak rasa dan kejadian yang telah dilewati. Namun ini bukan akhir dari segalanya, banyak yang akan dilewati dan mungkin akan lebih sulit dari yang pernah dilewati. Kami yakin kepercayaan dan kasih sayang dapat menguatkan setiap perjalanan hidup kami.</p>
+        <p>Terimakasih yang teramat dalam kesemua orang yang berperan di perjalanan kami, serta kami memohon doa dan dukungan untuk perjalanan kami selanjutnya.</p>
+    </div>
+</section>
+
+<div id="story-modal" class="modal">
+    <div class="modal-content glass-card">
+        <span class="close-btn" onclick="closeStory()">&times;</span>
+        <h3 id="modal-title" class="script-name"></h3>
+        <p id="modal-desc"></p>
+    </div>
+</div>
+<div id="story-modal" class="modal">
+    <div class="modal-content glass-card">
+        <span class="close-btn" onclick="closeStory()">&times;</span>
+        <h3 id="modal-title" class="script-name"></h3>
+        <p id="modal-desc"></p>
+    </div>
+</div>
+
+        <section class="gallery">
+            <h2 class="section-title">Portraits of Us</h2>
+            <div class="gallery-wrapper">
+                <div class="gallery-container">
+                    <div class="gallery-item"><img src="prewed2.jpg"></div>
+                    <div class="gallery-item"><img src="prewed11.jpg"></div>
+                    <div class="gallery-item"><img src="prewed3.jpg"></div>
+                    <div class="gallery-item"><img src="prewed12.jpg"></div>
+                    <div class="gallery-item"><img src="prewed5.jpg"></div>
+                    <div class="gallery-item"><img src="prewed14.jpg"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="extra">
+            <h2 class="section-title">Wedding Gift</h2>
+            <div class="glass-card">
+                <p><strong>BANK BCA</strong><br>4760781989<br>Wyvanny Della</p>
+            </div>
+            <div class="glass-card">
+                <p><strong>BANK BRI</strong><br>093901021232536<br>Destra Panca Syahputra</p>
+            </div>
+        </section>
+
+        <section class="wish-section">
+            <h2 class="section-title">Ucapan & Doa</h2>
+            <div class="glass-card">
+                <form id="wish-form">
+                    <input type="text" id="nama" placeholder="Nama Anda" required>
+                    <textarea id="ucapan" rows="4" placeholder="Tulis doa restu..." required></textarea>
+                    <div class="wa-button-group">
+                        <button type="button" onclick="sendToWA('wanita')" class="btn-wa">Kirim ke Wyvanny</button>
+                        <button type="button" onclick="sendToWA('pria')" class="btn-wa">Kirim ke Destra</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
 
     <script src="script.js"></script>
 </body>
