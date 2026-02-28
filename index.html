@@ -9,10 +9,12 @@
 </head>
 <body class="locked">
 
+    <div class="bg-fixed"></div>
+    <div class="bg-overlay"></div>
+
     <audio id="nasheed" loop>
         <source src="In A Rush - backstreet boys.mp3" type="audio/mpeg">
     </audio>
-
     <div id="music-btn" onclick="toggleMusic()" style="display: none;">🎵</div>
 
     <section class="hero">
@@ -26,6 +28,7 @@
     </section>
 
     <main id="main-invitation" style="display: none;">
+        
         <section id="main-content">
             <div class="quote glass-card">
                 "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan pasangan-pasangan dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya..." (Ar-Rum: 21)
@@ -67,6 +70,7 @@
                 <h3>Akad Nikah</h3>
                 <p>Sabtu, 28 Maret 2026<br>09.00 WIB</p>
             </div>
+
             <div class="glass-card">    
                 <hr class="gold-line">
                 <h3>Resepsi Pernikahan</h3>
@@ -82,63 +86,40 @@
             </div>
         </section>
 
-<section class="story-section">
-    <h2 class="section-title">Our Story</h2>
-    
-    <div class="story-container">
-        
-        <div class="story-row left">
-            <div class="story-bubble" onclick="openStory('cerita1')">Cerita berawal dari...</div>
-        </div>
+        <section class="story-section">
+            <h2 class="section-title">Our Story</h2>
+            
+            <div class="story-container">
+                <div class="story-row left">
+                    <div class="story-bubble" onclick="openStory('cerita1')">Cerita berawal dari...</div>
+                </div>
+                <div class="story-row right">
+                    <div class="story-bubble" onclick="openStory('cerita2')">Keinginan untuk mengenal</div>
+                </div>
+                <div class="story-row left">
+                    <div class="story-bubble" onclick="openStory('cerita3')">Keadaan memperkuat keyakinan</div>
+                </div>
+                <div class="story-row right">
+                    <div class="story-bubble" onclick="openStory('cerita4')">Kebahagiaan atas penerimaan</div>
+                </div>
+            </div>
 
-        <div class="story-row right">
-            <div class="story-bubble" onclick="openStory('cerita2')">Keinginan untuk mengenal</div>
-        </div>
-
-        <div class="story-row left">
-            <div class="story-bubble" onclick="openStory('cerita3')">Keadaan memperkuat keyakinan</div>
-        </div>
-
-        <div class="story-row right">
-            <div class="story-bubble" onclick="openStory('cerita4')">Berjuang</div>
-        </div>
-
-        <div class="story-row left">
-            <div class="story-bubble" onclick="openStory('cerita5')">Kebahagiaan atas penerimaan</div>
-        </div>
-    </div>
-
-    <div class="story-footer-text">
-        <p>Perjalanan ini tak akan pernah kami lupakan. Banyak rasa dan kejadian yang telah dilewati. Namun ini bukan akhir dari segalanya, banyak yang akan dilewati dan mungkin akan lebih sulit dari yang pernah dilewati. Kami yakin kepercayaan dan kasih sayang dapat menguatkan setiap perjalanan hidup kami.</p>
-        <p>Terimakasih yang teramat dalam kesemua orang yang berperan di perjalanan kami, serta kami memohon doa dan dukungan untuk perjalanan kami selanjutnya.</p>
-    </div>
-</section>
-
-<div id="story-modal" class="modal">
-    <div class="modal-content glass-card">
-        <span class="close-btn" onclick="closeStory()">&times;</span>
-        <h3 id="modal-title" class="script-name"></h3>
-        <p id="modal-desc"></p>
-    </div>
-</div>
-<div id="story-modal" class="modal">
-    <div class="modal-content glass-card">
-        <span class="close-btn" onclick="closeStory()">&times;</span>
-        <h3 id="modal-title" class="script-name"></h3>
-        <p id="modal-desc"></p>
-    </div>
-</div>
+            <div class="story-footer-text">
+                <p>Perjalanan ini tak akan pernah kami lupakan. Banyak rasa dan kejadian yang telah dilewati. Namun ini bukan akhir dari segalanya, banyak yang akan dilewati dan mungkin akan lebih sulit dari yang pernah dilewati. Kami yakin kepercayaan dan kasih sayang dapat menguatkan setiap perjalanan hidup kami.</p>
+                <p>Terimakasih yang teramat dalam kesemua orang yang berperan di perjalanan kami, serta kami memohon doa dan dukungan untuk perjalanan kami selanjutnya.</p>
+            </div>
+        </section>
 
         <section class="gallery">
             <h2 class="section-title">Portraits of Us</h2>
             <div class="gallery-wrapper">
                 <div class="gallery-container">
-                    <div class="gallery-item"><img src="prewed2.jpg"></div>
-                    <div class="gallery-item"><img src="prewed11.jpg"></div>
-                    <div class="gallery-item"><img src="prewed3.jpg"></div>
-                    <div class="gallery-item"><img src="prewed12.jpg"></div>
-                    <div class="gallery-item"><img src="prewed5.jpg"></div>
-                    <div class="gallery-item"><img src="prewed14.jpg"></div>
+                    <div class="gallery-item"><img src="prewed2.jpg" alt="Gallery 1"></div>
+                    <div class="gallery-item"><img src="prewed11.jpg" alt="Gallery 2"></div>
+                    <div class="gallery-item"><img src="prewed3.jpg" alt="Gallery 3"></div>
+                    <div class="gallery-item"><img src="prewed12.jpg" alt="Gallery 4"></div>
+                    <div class="gallery-item"><img src="prewed5.jpg" alt="Gallery 5"></div>
+                    <div class="gallery-item"><img src="prewed14.jpg" alt="Gallery 6"></div>
                 </div>
             </div>
         </section>
@@ -167,6 +148,14 @@
             </div>
         </section>
     </main>
+
+    <div id="story-modal" class="modal">
+        <div class="modal-content glass-card">
+            <span class="close-btn" onclick="closeStory()">×</span>
+            <h3 id="modal-title" class="script-name"></h3>
+            <p id="modal-desc"></p>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
