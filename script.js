@@ -1,81 +1,116 @@
-// 1. Ambil Nama Tamu dari URL
-const urlParams = new URLSearchParams(window.location.search);
-const guestName = urlParams.get('to');
-if (guestName) {
-    document.getElementById('nama-tamu-display').innerText = guestName;
-    document.getElementById('namaTamu').value = guestName;
-}
+const audio = document.getElementById('nasheed');
 
-// 2. Kontrol Audio & Buka Undangan
-var musik = document.getElementById("bg-music");
-var btnAudio = document.getElementById("audio-control");
+function openInvitation() {
+    const cover = document.querySelector(".hero");
+    const mainContent = document.getElementById("main-invitation");
+    const musicBtn = document.getElementById("music-btn");
 
-function bukaUndangan() {
-    document.getElementById('cover').style.opacity = '0';
+    // 1. Putar musik
+    if (audio) {
+        audio.play();
+    }
+
+    // 2. Munculkan konten di belakang cover
+    mainContent.style.display = "block";
+    musicBtn.style.display = "flex";
+
+    // 3. Jalankan animasi geser cover ke atas
+    cover.classList.add("slide-up");
+
+    // 4. Buka kunci scroll body setelah animasi selesai
     setTimeout(() => {
-        document.getElementById('cover').style.display = 'none';
-        document.getElementById('main-content').style.display = 'block';
-        document.body.style.overflowY = 'auto';
-        musik.play();
-        btnAudio.style.display = 'block';
+        document.body.classList.remove("locked");
+        cover.style.display = "none"; // Hilangkan total biar ga berat
     }, 1000);
 }
 
-function toggleAudio() {
-    if (musik.paused) { musik.play(); btnAudio.innerHTML = "🎵"; } 
-    else { musik.pause(); btnAudio.innerHTML = "🔇"; }
+function toggleMusic() {
+    const btn = document.getElementById('music-btn');
+    if (audio.paused) {
+        audio.play();
+        btn.innerText = "🎵";
+    } else {
+        audio.pause();
+        btn.innerText = "🔇";
+    }
 }
 
-// 3. Countdown Timer
-const targetDate = new Date("mart 28, 2026 09:00:00").getTime();
-setInterval(function() {
+// Countdown
+const targetDate = new Date("March 28, 2026 09:00:00").getTime();
+setInterval(() => {
     const now = new Date().getTime();
     const distance = targetDate - now;
-
     if (distance < 0) return;
 
-    document.getElementById("hari").innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
-    document.getElementById("jam").innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    document.getElementById("menit").innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    document.getElementById("detik").innerText = Math.floor((distance % (1000 * 60)) / 1000);
+    document.getElementById('days').innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
+    document.getElementById('hours').innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    document.getElementById('mins').innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    document.getElementById('secs').innerText = Math.floor((distance % (1000 * 60)) / 1000);
 }, 1000);
 
-// 4. Animasi Scroll
-const reveals = document.querySelectorAll('.reveal');
-const revealOptions = { threshold: 0.15, rootMargin: "0px 0px -50px 0px" };
-const revealOnScroll = new IntersectionObserver(function(entries, observer) {
-    entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add('active');
-        observer.unobserve(entry.target);
-    });
-}, revealOptions);
-reveals.forEach(reveal => revealOnScroll.observe(reveal));
+function sendToWA(tujuan) {
+    const nama = document.getElementById('nama').value;
+    const ucapan = document.getElementById('ucapan').value;
+    if (!nama || !ucapan) { alert("Isi nama dan ucapan dulu!"); return; }
 
-// 5. RSVP via WhatsApp
-// PERHATIKAN TANDA KURUNG DI BAWAH INI, HARUS ADA KATA 'nomorWA'
-function kirimRSVP(nomorWA) {
-    var nama = document.getElementById('namaTamu').value;
-    var kehadiran = document.getElementById('kehadiran').value;
-    var jumlah = document.getElementById('jumlahTamu').value;
-    var ucapan = document.getElementById('ucapan').value;
+    const noWanita = "6281268184765";
+    const noPria = "6282297577745";
+    const nomorTujuan = (tujuan === 'wanita') ? noWanita : noPria;
+    const targetNama = (tujuan === 'wanita') ? "Wyvanny" : "Destra";
 
-    // Ngecek form udah diisi apa belum
-    if(!nama || !kehadiran) { 
-        alert("Nama dan Kehadiran wajib diisi!"); 
-        return; 
+    const pesan = `Halo ${targetNama}, saya *${nama}*.\n\nBerikut ucapan & doa restu saya:\n"${ucapan}"`;
+    window.open(`https://api.whatsapp.com/send?phone=${nomorTujuan}&text=${encodeURIComponent(pesan)}`, '_blank');
+}
+// Data Cerita (Ganti isinya sesuai keinginan lu)
+const storyData = {
+    cerita1: {
+        title: "Cerita berawal dari...",
+        desc: "Di sini lu tulis detailnya cok, misal pertama ketemu di mana atau lewat apa."
+    },
+    cerita2: {
+        title: "Keinginan untuk mengenal",
+        desc: "Ceritain pas mulai PDKT atau mulai sering ngobrol bareng."
+    },
+    cerita3: {
+        title: "Keadaan memperkuat keyakinan",
+        desc: "Momen di mana kalian ngerasa 'wah ini dia orangnya'."
+    },
+    cerita4: {
+        title: "Berjuang",
+        desc: "Gimana suka duka kalian berdua pas lagi bareng-bareng."
+    },
+    cerita5: {
+        title: "Kebahagiaan atas penerimaan",
+        desc: "Pas akhirnya lamaran atau sepakat buat ke pelaminan."
     }
+};
 
-    // Format pesan WhatsApp
-    var pesan = `Halo, saya ingin konfirmasi kehadiran.%0A%0A*Nama:* ${nama}%0A*Hadir:* ${kehadiran}%0A*Jumlah:* ${jumlah} orang%0A*Ucapan & Doa:* ${ucapan}`;
+function openStory(id) {
+    const modal = document.getElementById("story-modal");
+    const title = document.getElementById("modal-title");
+    const desc = document.getElementById("modal-desc");
+
+    title.innerText = storyData[id].title;
+    desc.innerText = storyData[id].desc;
     
-    // Buka WhatsApp pake nomor yang dilempar dari tombol HTML
-    window.open(`https://wa.me/${nomorWA}?text=${pesan}`, '_blank');
+    modal.style.display = "block";
+    document.body.style.overflow = "hidden"; // Biar ga bisa scroll pas modal buka
 }
 
-// 6. Share Link Undangan
-function shareWA() {
-    var linkUndangan = window.location.href.split('?')[0];
-    var pesan = `Bismillahirrahmanirrahim.%0ATanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i untuk hadir di acara pernikahan kami.%0A%0ABuka tautan berikut untuk info detail:%0A${linkUndangan}%0A%0ATerima kasih.`;
-    window.open(`https://wa.me/?text=${pesan}`, '_blank');
+function closeStory() {
+    const modal = document.getElementById("story-modal");
+    modal.style.display = "none";
+    
+    // Buka lagi scrollnya (tapi cek dulu kalau cover udh kebuka)
+    if (!document.body.classList.contains('locked')) {
+        document.body.style.overflow = "auto";
+    }
+}
+
+// Tutup modal kalau user klik di luar kotak
+window.onclick = function(event) {
+    const modal = document.getElementById("story-modal");
+    if (event.target == modal) {
+        closeStory();
+    }
 }
