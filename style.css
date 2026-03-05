@@ -181,7 +181,7 @@ h2.section-title,
 }
 
 .btn-gold {
-    background: linear-gradient(45deg, #3d0303, #630505);
+    background: rgba(61, 3, 3, 0.8);
     color: #fff;
     padding: 12px 30px;
     border: 1px solid var(--white-ivory);
@@ -212,6 +212,25 @@ h2.section-title,
     justify-content: center;
 }
 
+.btn-live {
+    display: inline-block;
+    /* Supaya bisa diatur margin-nya */
+    margin: 20px auto;
+    /* Margin otomatis kiri-kanan bikin dia ke tengah */
+    background: rgba(61, 3, 3, 0.8);
+    color: #fff;
+    padding: 14px 35px;
+    border: 1px solid white;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    text-decoration: none;
+    /* Hilangkan garis bawah link */
+    text-align: center;
+    justify-content: center;
+    font-family: 'bromello';
+}
 
 /* --- 7. COUNTDOWN --- */
 .countdown-container {
@@ -317,7 +336,7 @@ h2.section-title,
     width: 100%;
     padding: 0 15px;
     /* Jarak aman biar gak nempel pinggir layar HP */
-    
+
 }
 
 .story-row {
@@ -337,10 +356,10 @@ h2.section-title,
 .story-bubble {
     /* Background transparan sesuai request */
     background: rgba(61, 3, 3, 0.8) !important;
-    
+
     /* GARIS TEPI PUTIH (Gue set 2px biar gak terlalu tebel, kalau kurang tebel ganti ke 5px) */
-    border: 1px solid #ffffff !important; 
-    
+    border: 1px solid #ffffff !important;
+
     padding: 14px 22px;
     border-radius: 25px;
     cursor: pointer;
@@ -350,7 +369,8 @@ h2.section-title,
     transition: transform 0.2s ease, background 0.2s ease;
     font-size: 0.9rem;
     line-height: 1.4;
-    color: #ffffff; /* Pastikan warna teks juga putih biar kebaca */
+    color: #ffffff;
+    /* Pastikan warna teks juga putih biar kebaca */
 }
 
 /* Efek pas ditekan jari (Feedback ke user) */
@@ -372,8 +392,17 @@ h2.section-title,
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
 }
-.gallery-wrapper::-webkit-scrollbar { display: none; }
-.gallery-container { display: flex; gap: 15px; padding: 0 30px; }
+
+.gallery-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+.gallery-container {
+    display: flex;
+    gap: 15px;
+    padding: 0 30px;
+}
+
 .gallery-item {
     flex: 0 0 260px;
     height: 380px;
@@ -381,11 +410,15 @@ h2.section-title,
     border-radius: 15px;
     overflow: hidden;
 }
-.gallery-item img { 
+
+.gallery-item img {
     display: block;
-    width: 100% !important; 
-    height: 100% !important; 
-    object-fit: cover; transition: 0.3s; }
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+    transition: 0.3s;
+}
+
 /* --- 10. FORM UCAPAN --- */
 #wish-form {
     display: flex;
@@ -393,22 +426,61 @@ h2.section-title,
     gap: 10px;
 }
 
-#wish-form input,
-#wish-form textarea {
+/* --- UPDATE TAMPILAN CONTAINER UCAPAN --- */
+.wish-list {
+    width: 100%;
+    max-width: 450px;
+    margin-top: 25px;
     padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
+
+    /* KUNCINYA DI SINI: Kasih batas tinggi */
+    max-height: 400px;
+    overflow-y: auto;
+    /* Munculkan scrollbar kalau isinya penuh */
+
+    /* Biar scrollbar-nya estetik (tipis) */
+    scrollbar-width: thin;
+    scrollbar-color: var(--gold-bright) transparent;
 }
 
-.wa-button-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+/* Custom scrollbar buat Chrome/Safari (Biar gak ngerusak desain) */
+.wish-list::-webkit-scrollbar {
+    width: 5px;
+}
+
+.wish-list::-webkit-scrollbar-thumb {
+    background-color: var(--gold-bright);
+    border-radius: 10px;
+}
+
+.wish-item {
+    background: rgba(61, 3, 3, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-left: 4px solid #d4af37;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    backdrop-filter: blur(5px);
+
+    /* Tambahan biar teks panjang nggak berantakan */
+    word-wrap: break-word;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* --- 11. MODAL & MUSIC --- */
 .modal {
-    display: none; 
+    display: none;
     position: fixed;
     z-index: 9999;
     left: 0;
@@ -416,11 +488,13 @@ h2.section-title,
     width: 100%;
     height: 100%;
     overflow-y: auto;
-    background-color: rgba(0, 0, 0, 0.1); /* Area luar jadi gelap transparan */
+    background-color: rgba(0, 0, 0, 0.1);
+    /* Area luar jadi gelap transparan */
 }
 
 .modal-content {
-    background: rgba(61, 3, 3, 1); /* Warna Burgundy Transparan */
+    background: rgba(61, 3, 3, 1);
+    /* Warna Burgundy Transparan */
     margin: 15% auto;
     padding: 25px;
     width: 85%;
@@ -429,7 +503,7 @@ h2.section-title,
     color: #fff;
     position: relative;
     /* GARIS TEPI PUTIH SESUAI REQUEST */
-    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
 }
 
 #music-btn {
@@ -445,6 +519,7 @@ h2.section-title,
     align-items: center;
     z-index: 9999;
     cursor: pointer;
+    border: 1px solid white;
 }
 
 /* Font Face */

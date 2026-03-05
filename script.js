@@ -1,39 +1,50 @@
-const audio = document.getElementById('nasheed');
-
-function openInvitation() {
+// Gunakan DOMContentLoaded supaya script nunggu HTML siap dulu
+document.addEventListener('DOMContentLoaded', () => {
+    const audio = document.getElementById('nasheed');
+    const musicBtn = document.getElementById("music-btn");
     const cover = document.querySelector(".hero");
     const mainContent = document.getElementById("main-invitation");
-    const musicBtn = document.getElementById("music-btn");
 
-    // 1. Putar musik
-    if (audio) {
-        audio.play();
-    }
+    // Fungsi Buka Undangan
+    window.openInvitation = function () {
+        // 1. Jalankan Musik dengan penanganan error (Promise)
+        if (audio) {
+            audio.play().catch(error => {
+                console.log("Autoplay dicegah, musik akan jalan setelah interaksi.");
+            });
+        }
 
-    // 2. Munculkan konten di belakang cover
-    mainContent.style.display = "block";
-    musicBtn.style.display = "flex";
+        // 2. Munculkan Konten & Tombol Musik
+        if (mainContent) mainContent.style.display = "block";
+        if (musicBtn) musicBtn.style.display = "flex";
 
-    // 3. Jalankan animasi geser cover ke atas
-    cover.classList.add("slide-up");
+        // 3. Animasi Cover
+        if (cover) {
+            cover.classList.add("slide-up");
 
-    // 4. Buka kunci scroll body setelah animasi selesai
-    setTimeout(() => {
-        document.body.classList.remove("locked");
-        cover.style.display = "none"; // Hilangkan total biar ga berat
-    }, 1000);
-}
+            // Tunggu animasi selesai (1 detik sesuai durasi CSS)
+            setTimeout(() => {
+                document.body.classList.remove("locked");
+                cover.style.display = "none"; // Hapus dari DOM biar enteng
+            }, 1000);
+        }
+    };
 
-function toggleMusic() {
-    const btn = document.getElementById('music-btn');
-    if (audio.paused) {
-        audio.play();
-        btn.innerText = "🎵";
-    } else {
-        audio.pause();
-        btn.innerText = "🔇";
-    }
-}
+    // Fungsi Toggle Musik (Jeda/Putar)
+    window.toggleMusic = function () {
+        if (!audio) return;
+
+        if (audio.paused) {
+            audio.play();
+            musicBtn.innerText = "🎵";
+            musicBtn.classList.remove('paused'); // Opsional jika ada CSS animasi
+        } else {
+            audio.pause();
+            musicBtn.innerText = "🔇";
+            musicBtn.classList.add('paused');
+        }
+    };
+});
 
 // Countdown
 const targetDate = new Date("March 28, 2026 09:00:00").getTime();
@@ -95,7 +106,7 @@ function openStory(id) {
     desc.innerText = storyData[id].desc;
 
     // Reset posisi scroll modal ke atas setiap kali dibuka
-    modal.scrollTop = 0; 
+    modal.scrollTop = 0;
 
     modal.style.display = "block";
     document.body.style.overflow = "hidden"; // Kunci background
@@ -118,3 +129,47 @@ window.onclick = function (event) {
         closeStory();
     }
 }
+document.addEventListener('DOMContentLoaded', function () {
+    const wishForm = document.getElementById('wish-form');
+    const wishDisplay = document.getElementById('wish-display-container');
+
+    // Fungsi untuk menampilkan semua ucapan
+    function displayWishes() {
+        const wishes = JSON.parse(localStorage.getItem('weddingWishes')) || [];
+        wishDisplay.innerHTML = '';
+
+        // Tampilkan dari yang paling baru (paling atas)
+        wishes.reverse().forEach(data => {
+            const wishDiv = document.createElement('div');
+            wishDiv.className = 'wish-item';
+            wishDiv.innerHTML = `
+                <h4>${data.nama}</h4>
+                <p>${data.ucapan}</p>
+            `;
+            wishDisplay.appendChild(wishDiv);
+        });
+    }
+
+    // Jalankan saat pertama kali load
+    displayWishes();
+
+    // Event saat tombol Kirim diklik
+    wishForm.addEventListener('submit', function (e) {
+        e.preventDefault(); // Mencegah reload halaman
+
+        const nama = document.getElementById('nama').value;
+        const ucapan = document.getElementById('ucapan').value;
+
+        // Simpan ke localStorage
+        const wishes = JSON.parse(localStorage.getItem('weddingWishes')) || [];
+        wishes.push({
+            nama,
+            ucapan
+        });
+        localStorage.setItem('weddingWishes', JSON.stringify(wishes));
+
+        // Reset form & update tampilan
+        wishForm.reset();
+        displayWishes();
+    });
+});
