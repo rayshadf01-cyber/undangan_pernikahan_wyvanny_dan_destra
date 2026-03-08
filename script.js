@@ -215,5 +215,37 @@ container.addEventListener('touchend', () => {
 container.addEventListener('mouseenter', () => isUserScrolling = true);
 container.addEventListener('mouseleave', () => isUserScrolling = false);
 
+
+const scriptURL = 'https://script.google.com/macros/s/AKfycbzTTzIhYuUufHANum5-_fqkbdmsZx0mRfktaQiCcofkO2KIOtP5PEWXpcfVFfSrC2ccTA/exec';
+const form = document.getElementById('wish-form');
+
+form.addEventListener('submit', e => {
+    e.preventDefault();
+    const submitBtn = form.querySelector('button');
+    submitBtn.disabled = true;
+    submitBtn.innerText = 'Mengirim...';
+
+    // Ambil data dari input
+    const body = {
+        nama: document.getElementById('nama').value,
+        ucapan: document.getElementById('ucapan').value
+    };
+
+    fetch(scriptURL, {
+        method: 'POST',
+        body: JSON.stringify(body)
+    })
+    .then(res => {
+        alert('Terima kasih atas ucapannya!');
+        form.reset();
+        loadWishes(); // Fungsi buat nampilin ulang list ucapan
+    })
+    .catch(error => console.error('Error!', error.message))
+    .finally(() => {
+        submitBtn.disabled = false;
+        submitBtn.innerText = 'Kirim Ucapan';
+    });
+});
 // Jalankan fungsi
+
 startAutoScroll();
