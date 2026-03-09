@@ -216,7 +216,6 @@ container.addEventListener('mouseenter', () => isUserScrolling = true);
 container.addEventListener('mouseleave', () => isUserScrolling = false);
 
 
-const scriptURL = 'https://script.google.com/macros/s/AKfycbzTTzIhYuUufHANum5-_fqkbdmsZx0mRfktaQiCcofkO2KIOtP5PEWXpcfVFfSrC2ccTA/exec';
 const form = document.getElementById('wish-form');
 
 form.addEventListener('submit', e => {
@@ -249,3 +248,64 @@ form.addEventListener('submit', e => {
 // Jalankan fungsi
 
 startAutoScroll();
+// 1. PASTIKAN KEY-NYA DIAWALI DENGAN 'eyJh...'
+const SUPABASE_URL = 'https://dbxitmogfmxnlifidtmk.supabase.co'; 
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRieGl0bW9nZm14bmxpZmlkdG1rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMwNDI5MDQsImV4cCI6MjA4ODYxODkwNH0.pMg2WxwN8L-Tlb5tqgzC32-OPNgaY07K9Ud8OyCICw4'; 
+const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+async function loadWishes() {
+    const wishDisplay = document.getElementById('wish-display-container');
+    if (!wishDisplay) return;
+
+    // Pakai 'wish' sesuai nama tabel lo di dashboard
+    const { data, error } = await _supabase
+        .from('wish') 
+        .select('nama, ucapan')
+        .order('created_at', { ascending: false });
+
+    if (error) {
+        console.error("Gagal ambil data:", error.message);
+        return;
+    }
+
+    wishDisplay.innerHTML = '';
+    data.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'wish-item';
+        div.innerHTML = `<h4>${item.nama}</h4><p>${item.ucapan}</p>`;
+        wishDisplay.appendChild(div);
+    });
+}
+
+const wishForm = document.getElementById('wish-form');
+if (wishForm) {
+    wishForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const nama = document.getElementById('nama').value;
+        const ucapan = document.getElementById('ucapan').value;
+        const submitBtn = wishForm.querySelector('button');
+
+        submitBtn.disabled = true;
+        submitBtn.innerText = 'Mengirim...';
+
+        // DI SINI TADI LO TYPO 'wishes', GANTI JADI 'wish'
+        const { error } = await _supabase
+            .from('wish') 
+            .insert([{ nama, ucapan }]);
+
+        if (error) {
+            alert('Gagal kirim: ' + error.message);
+        } else {
+            alert('Ucapan berhasil terkirim!');
+            wishForm.reset();
+            loadWishes(); 
+        }
+
+        submitBtn.disabled = false;
+        submitBtn.innerText = 'Kirim Ucapan';
+    });
+}
+
+// Jangan lupa panggil loadWishes pas halaman beres loading
+document.addEventListener('DOMContentLoaded', loadWishes);
