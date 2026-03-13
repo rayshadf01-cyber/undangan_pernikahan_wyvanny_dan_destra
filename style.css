@@ -131,8 +131,9 @@ h1 {
     font-size: clamp(1.8rem, 5vw, 3rem);
 }
 h2.section-title, .subjudul {
-    font-size: clamp(2rem, 6vw, 3.5rem);
+    font-size: clamp(2.8rem, 10vw, 5rem);
     text-align: center;
+    margin-bottom: 20px; /*Tambah sedikit jarak ke countdown */
 }
 .script-name,
 .divider-ampersand {
@@ -153,7 +154,7 @@ h2.section-title, .subjudul {
 .script-name {
     font-size: clamp(1.5rem, 5vw, 2.5rem);
     margin: 5px 0;
-}
+}    
 
 .divider-ampersand {
     font-size: 3rem;
@@ -255,35 +256,58 @@ h2.section-title, .subjudul {
     padding: 12px 20px;
     font-size: 1rem;
 }
-/* --- 7. COUNTDOWN --- */
+/* --- 7. COUNTDOWN (Ukuran Pas & Proporsional) --- */
 .countdown-container {
     width: 100%;
-    max-width: 400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Memastikan barisan kotak ada di tengah */
 }
 
 .countdown-row {
     display: flex;
-    gap: 8px;
-    justify-content: center;
+    gap: 10px; /* Jarak antar kotak */
+    justify-content: center; 
     width: 100%;
+    flex-wrap: nowrap; /* Memastikan tetap sejajar horizontal jika muat */
 }
 
 .count-box {
-    flex: 1; /* Biar kotak bagi-bagi tempat otomatis */
-    min-width: 0; /* Biar bisa mengecil banget di HP sempit */
+    /* Ukuran tetap agar jadi persegi yang pas */
+    width: 70px; 
+    height: 70px;
+    
+    /* Kalau di HP mau lebih fleksibel tapi tetep kotak */
+    max-width: 20vw; 
+    aspect-ratio: 1 / 1; 
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     background: rgba(61, 3, 3, 0.8);
     border: 1px solid var(--white-ivory);
-    padding: 8px 5px;
     border-radius: 10px;
+    padding: 5px;
+}
+
+/* Hilangkan flex: 1 agar kotak tidak melebar paksa */
+.count-box, .count-box.large {
+    flex: none; 
 }
 
 .count-box span {
-    font-size: clamp(1.2rem, 4vw, 2rem); /* Angka countdown ikut fleksibel */
+    display: block;
+    font-size: clamp(1.2rem, 4vw, 1.8rem); /* Ukuran angka disesuaikan */
+    font-weight: bold;
+    line-height: 1;
+    margin-bottom: 2px;
 }
 
 .count-box p {
     margin: 0;
-    font-size: 0.6em;
+    font-size: 0.6rem;
     text-transform: uppercase;
 }
 
@@ -621,75 +645,80 @@ main {
         font-size: 0.85rem;
     }
 }
+/* --- 12. WEDDING GIFT (Ukuran Lebih Kecil & Elegan) --- */
 .bank-card {
-    width: 100%;
-    max-width: 350px;
-    height: 200px;
-    /* Warna Burgundy Transparan pilihan lo */
+    width: 90%; /* Memberi sedikit ruang di pinggir layar HP */
+    max-width: 300px; /* Kita kecilkan dari 350px ke 300px */
+    height: 180px; /* Kita pendekkan dari 200px ke 180px */
     background: rgba(61, 3, 3, 0.5); 
-    backdrop-filter: blur(10px); /* Efek blur kaca */
-    border-radius: 20px;
-    padding: 25px;
+    backdrop-filter: blur(10px);
+    border-radius: 15px; /* Radius lebih kecil supaya terlihat tegas */
+    padding: 20px;
     position: relative;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    margin: 20px auto;
-    color: var(--white-ivory); /* Teks jadi Putih Gading */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    margin: 15px auto;
+    color: var(--white-ivory);
     border: 1px solid rgba(255,255,255,0.1);
     overflow: hidden;
 }
 
 .bank-name {
     position: absolute;
-    top: 20px;
-    right: 25px;
+    top: 15px;
+    right: 20px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
-    font-size: 1.1rem;
-    letter-spacing: 1px;
-    color: var(--gold-bright); /* Nama Bank pake warna Gold biar mewah */
+    font-size: 0.9rem; /* Ukuran teks bank dikecilkan */
+    color: var(--gold-bright);
 }
 
 .chip {
-    width: 45px;
-    height: 35px;
-    /* Gradasi Chip Emas */
+    width: 38px; /* Chip dikecilkan sedikit */
+    height: 28px;
     background: linear-gradient(135deg, #f0d07a 0%, #b8953d 100%);
-    border-radius: 6px;
-    margin-top: 25px;
-    margin-bottom: 15px;
-    opacity: 0.9;
+    border-radius: 4px;
+    margin-top: 20px;
+    margin-bottom: 12px;
 }
 
 .card-number {
-    font-family: 'Courier New', Courier, monospace; /* Pake font monospace biar ala kartu ATM */
-    font-size: 1.5rem;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.2rem; /* Ukuran angka kartu dikecilkan */
     font-weight: bold;
-    letter-spacing: 2px;
+    letter-spacing: 1.5px;
     margin-bottom: 5px;
 }
 
 .card-holder {
     font-family: 'Montserrat', sans-serif;
-    font-size: 1rem;
+    font-size: 0.85rem; /* Ukuran nama pemilik dikecilkan */
     text-transform: uppercase;
     opacity: 0.8;
 }
 
 .btn-copy-card {
     position: absolute;
-    bottom: 20px;
-    right: 20px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    color: white;
-    padding: 6px 15px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 0.85rem;
-    transition: 0.3s;
+    bottom: 15px;
+    right: 15px;
+    padding: 5px 12px;
+    font-size: 0.75rem; /* Tombol copy lebih mungil */
 }
 
 .btn-copy-card:hover {
     background: var(--gold-bright);
     color: var(--burgundy-deep);
 }   
+
+/* Kode untuk memperbesar khusus judul Save The Date */
+.title-besar {
+    font-size: clamp(3.5rem, 12vw, 6rem) !important;
+    margin-bottom: 30px;
+    display: block;
+    width: 100%;
+    text-align: center; /* Memastikan teks di tengah */
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+
